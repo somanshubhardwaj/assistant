@@ -1,6 +1,7 @@
 import speech_recognition as sr
-
 from googletrans import Translator
+from gtts import gTTS
+import os
 
 
 def listen():
@@ -22,12 +23,11 @@ def listen():
         return None
 
 
-"""while True:
+while True:
     text = listen()
     if text:
         print("You said:", text)
         break
-"""
 
 langcode = {"Hindi": "hi", "English": "en", "French": "fr", "German": "de", "Spanish": "es", "Italian": "it",
             "Japanese": "ja", "Korean": "ko", "Russian": "ru", "Chinese": "zh-cn"}
@@ -46,3 +46,14 @@ for language in langcode:
 target_language = input("Enter the target language (e.g., 'fr' for French): ")
 translated_text = translate_text(text_to_translate, target_language)
 print("Translated text:", translated_text)
+
+
+def text_to_speech(text, language='en'):
+    tts = gTTS(text=text, lang=language)
+    tts.save("output.mp3")
+    os.system("start output.mp3")  # Opens the generated audio file
+
+
+text_to_convert = translated_text
+language_code = target_language
+text_to_speech(text_to_convert, language_code)
